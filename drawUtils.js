@@ -3,6 +3,8 @@
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d");
 
+var scaleX = 0;
+var scaleY = 0;
 export class DrawUtils {
     
     Bean(x, y, width, height, color) {
@@ -109,6 +111,40 @@ export class DrawUtils {
         drawingTool.fillStyle = color;
         drawingTool.fill()
         drawingTool.closePath();
+    }
+
+
+    originalWidth = canvas.width;
+    originalHeight = canvas.height;
+    resizeCanvasForWindowSize(canvas, ctx) {
+        var currentWidth = canvas.width;
+        var currentHeight = canvas.height;
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var desiredWidth = windowWidth-50;
+        var aspectRatio = this.originalWidth / this.originalHeight;
+        var desiredHeight = desiredWidth / aspectRatio;
+        canvas.width = desiredWidth;
+        canvas.height = desiredHeight;
+        scaleX = (desiredWidth / this.originalWidth);
+        scaleY = (desiredHeight / this.originalHeight);
+
+        ctx.setTransform(scaleY, 0, 0, scaleX, 0, 0)
+
+        currentWidth = canvas.width;
+        currentHeight = canvas.height;
+        if (currentHeight >= windowHeight-50) {
+            desiredHeight = windowHeight-50;
+            aspectRatio = this.originalWidth / this.originalHeight;
+            desiredWidth = desiredHeight * aspectRatio;
+            canvas.width = desiredWidth;
+            this.width = desiredWidth
+            this.height = desiredHeight
+            canvas.height = desiredHeight;
+            scaleX = (desiredWidth / this.originalWidth);
+            scaleY = (desiredHeight / this.originalHeight);
+            ctx.setTransform(scaleY, 0, 0, scaleX, 0, 0)        
+        }
     }
 
 }

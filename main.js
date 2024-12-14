@@ -37,6 +37,7 @@ function tick(){
     }
     draw.Circle(x,y,r+4,"#33363f")
     draw.Circle(x,y,r,"#afbfaf")
+    draw.resizeCanvasForWindowSize(canvas, ctx)
 
     requestAnimationFrame(tick)
 }
