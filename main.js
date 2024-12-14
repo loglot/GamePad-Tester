@@ -13,6 +13,7 @@ window.addEventListener("gamepadconnected", function() {
 var draw = new DrawUtils()
 
 function tick(){
+    draw.resizeCanvasForWindowSize(canvas, ctx)
     ctx.rect(0,0,10000,10000)
     ctx.fillStyle="rgb(167,199,216)"
     ctx.fill()
@@ -37,7 +38,6 @@ function tick(){
     }
     draw.Circle(x,y,r+4,"#33363f")
     draw.Circle(x,y,r,"#afbfaf")
-    draw.resizeCanvasForWindowSize(canvas, ctx)
 
     requestAnimationFrame(tick)
 }
